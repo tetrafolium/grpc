@@ -1,4 +1,11 @@
 inspecode:
   tools:
-    fortify: default
+    fortify:
+      options:
+        --commands:
+          - git submodule update --init
+          - mkdir -p cmake/build && cd cmake/build
+          - env CC="sourceanalyzer -b build_id $@ gcc" CXX="sourceanalyzer -b build_id $@ g++" cmake ../..
+          - make
+        --work-dir: .
 
